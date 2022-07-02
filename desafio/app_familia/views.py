@@ -1,11 +1,14 @@
+from ast import Delete, Return
 from django.shortcuts import render
-from app_familia.models import Familias
+from app_familia.models import Apellido, Domicilio, Familias
 from django.http import HttpResponse
 import datetime
+from app_familia.forms import UserEditForm, nuevo_formulario, UserEditForm
+from django.db.models import Q 
+from django.contrib.auth.forms import AuthenticationForm , UserCreationForm
+from django.contrib.auth import login , authenticate
+from django.contrib.auth.decorators import login_required
 
-
-
-# Create your views here.
 
 def inicio(request):
     return render(request, "index.html")
@@ -27,3 +30,162 @@ def alta_familiares(request):
 
     return HttpResponse("Se creo correctamente")
     
+
+def domicilio (request):
+    Direccion = Domicilio.objects.all()
+    info = {"info" : Direccion}
+
+    return render(request, "domicilio.html", info)
+
+def adress (request):
+    familiares = Domicilio(Nombre="José", calle="Carlos Dodero 1699", viviendo_desde = "2000-02-15")
+    familiares.save()
+    familiares = Domicilio(Nombre="Miriam", calle="Carlos Dodero 1699", viviendo_desde = "2000-02-15")
+    familiares.save()
+    familiares = Domicilio(Nombre="Micaela", calle="Liniers 140", viviendo_desde = "1995-11-30")
+    familiares.save()
+
+    return HttpResponse("datos guardados")
+    
+
+def contacto(request):
+    return render(request, "contacto.html")
+
+
+def data(request):
+    info = Apellido.objects.all()
+    datas = {"datas" : info}
+
+    return render(request, "arbol.html", datas)
+
+def apellido(request):
+    apellidos = Apellido(Apellido_or="Rojas", Pais = "España")
+    apellidos.save()
+    apellidos = Apellido(Apellido_or = "Konrath", Pais = "Alemania")
+    apellidos.save()
+  
+    return HttpResponse("datos guardados")
+
+@login_required
+def nuevo_familiar(request):
+    if request.method == "POST":
+
+        miformulario = nuevo_formulario ( request.POST )
+        if miformulario.is_valid():
+            datos = miformulario.cleaned_data
+        
+            nuevo = Familias(nombre=datos['nombre'], edad=datos['edad'], nacimiento=datos['nacimiento'], vinculo=datos['vinculo'])
+            nuevo.save()
+            nuevo = Apellido(Apellido_or=datos['apellido']) 
+            nuevo.save()
+            nuevo = Domicilio(calle=datos['calle'], nombre=datos['nombre'])
+            nuevo.save()
+        
+        return render(request, "nuevo_familiar.html")
+        
+    return render(request, "nuevo_familiar.html")
+
+
+def buscar_familiar (request):
+
+    return render(request, "buscar_familiar.html")
+
+def buscar (request):
+    
+    if request.GET['buscar']:
+        buscar = request.GET['buscar']
+        busqueda = Familias.objects.filter(Q(nombre__icontains = buscar)|
+        Q(edad__icontains = buscar)|
+        Q(nacimiento__icontains = buscar)|
+        Q(vinculo__icontains = buscar)
+        ).distinct()
+    
+
+        
+        return render(request, "resultado_busqueda.html", {'busqueda': busqueda})
+        
+    else:
+
+        return HttpResponse("campo vacío")
+
+@login_required
+def eliminar_familiar (request, id):
+    eliminar = Familias.objects.get(id=id)
+    eliminar.delete()
+    eliminar = Familias.objects.all()
+
+    return render(request, "lista_familiares.html", {"eliminar": eliminar})
+
+
+def login_request(request):
+    if request.method =="POST":
+
+        form = AuthenticationForm(request, data=request.POST)
+
+        if form.is_valid():
+            usuario = form.cleaned_data.get("username")
+            contra = form.cleaned_data.get("password")
+
+            user = authenticate(username=usuario, password=contra)
+
+            if user is not None:
+                login(request, user)
+                return render(request, "inicio.html", {"mensaje":f"Bienvenido{usuario}"})
+                
+            else:
+                return HttpResponse(f"Usuario incorrecto")
+
+        else: 
+            return HttpResponse(f"Incorrecto {form}")    
+    
+
+
+
+    form = AuthenticationForm()
+
+    return render(request, "login.html", {"form":form})
+
+
+
+def register(request):
+
+    if request.method =="POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Usuario creado")
+ 
+
+
+    else:
+        form = UserCreationForm()
+    return render(request, "registro.html", {"form": form})
+
+@login_required
+def editar_perfil (request):
+   
+    usuario = request.user
+
+    if request.method =="POST":
+        miFormulario = UserEditForm(request.POST)
+
+        if miFormulario.is_valid():
+            información = miFormulario.cleaned_data
+
+            usuario.email = información['email']
+            password = información['password1']
+            usuario.set_password(password)
+            usuario.save()
+
+            return render(request, "inicio.html")
+
+
+
+    else:
+        miFormulario = UserEditForm(initial={'email':usuario.email})
+    
+    return render (request, "editar_perfil.html", {"miFormulario": miFormulario, "usuario": usuario})
+
+         
+
+

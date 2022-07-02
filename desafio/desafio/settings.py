@@ -55,7 +55,7 @@ ROOT_URLCONF = 'desafio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["D:/Escritorio/Python/DJANGO/Entregable/desafio/app_familia/templates"],
+        'DIRS': ["D:/Programación/Entregable/desafio/app_familia/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,3 +122,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_URL = 'login'
