@@ -27,12 +27,17 @@
       <td>{{familiar.edad}}</td>
       <td>{{familiar.nacimiento}}</td>
       <td>{{familiar.vinculo}}</td>
-      <td><a href="{% url 'eliminar_familiar.html' n.id">Borrar</a></td>
+      <td><a href="modificar">Modificar datos</a></td></td>
+      <td><a href="eliminar_familiar">Borrar</a></td>
       
     </tr>
     {%endfor%}
+    
+
     </tr>
+  
   </tbody>
+  
 </table>
 <button>
   <a href="nuevo_familiar">Agregar otro familiar</a>

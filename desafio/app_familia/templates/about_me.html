@@ -1,0 +1,24 @@
+{% extends "padre.html" %}
+{% load static %}
+{% block contenido %}
+
+<section>
+    <div class="wrapper">
+        <div class="container">
+            <div class="heading">
+                <h2>Acerca de mí</h2>
+                <img src="{% static 'app_familia/assets/img/yo.jpg' %}"  width="200" height="200" alt="">
+                <p>Hola, soy Fernando, estudiante del curso de Programación con Python en CoderHouse y este es mi primer proyecto.
+                    Se trata sobre una página donde podes encontrar información de como se compone mi familia, quienes somos,
+                    donde vivimos, nuestros nombres y el origen del apellido, algo así como un árbol genealógico. En fin eso es todo, espero 
+                    que te haya gustado lo que ves aquí, saludos!
+                   
+                   
+                   <p><time datetime="2022-7-3T12:23">3 de julio de 2022</time></p> 
+                </p>
+                 
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

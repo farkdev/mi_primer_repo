@@ -1,6 +1,8 @@
 from ast import Delete, Return
+from distutils.log import info
+from tkinter.font import families
 from django.shortcuts import render
-from app_familia.models import Apellido, Domicilio, Familias
+from app_familia.models import Apellido, Domicilio, Familias, Avatar
 from django.http import HttpResponse
 import datetime
 from app_familia.forms import UserEditForm, nuevo_formulario, UserEditForm
@@ -11,7 +13,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
-    return render(request, "index.html")
+    avatares = Avatar.objects.filter(user=request.user.id)
+    return render(request, "index.html", {"url":avatares[0].imagen.url})
 
 
 def lista_familiares(request):
@@ -38,11 +41,11 @@ def domicilio (request):
     return render(request, "domicilio.html", info)
 
 def adress (request):
-    familiares = Domicilio(Nombre="José", calle="Carlos Dodero 1699", viviendo_desde = "2000-02-15")
+    familiares = Domicilio(calle="Carlos Dodero 1699", viviendo_desde = "2000-02-15")
     familiares.save()
-    familiares = Domicilio(Nombre="Miriam", calle="Carlos Dodero 1699", viviendo_desde = "2000-02-15")
+    familiares = Domicilio(calle="Carlos Dodero 1699", viviendo_desde = "2000-02-15")
     familiares.save()
-    familiares = Domicilio(Nombre="Micaela", calle="Liniers 140", viviendo_desde = "1995-11-30")
+    familiares = Domicilio(calle="Liniers 140", viviendo_desde = "1995-11-30")
     familiares.save()
 
     return HttpResponse("datos guardados")
@@ -78,7 +81,7 @@ def nuevo_familiar(request):
             nuevo.save()
             nuevo = Apellido(Apellido_or=datos['apellido']) 
             nuevo.save()
-            nuevo = Domicilio(calle=datos['calle'], nombre=datos['nombre'])
+            nuevo = Domicilio(calle=datos['calle'])
             nuevo.save()
         
         return render(request, "nuevo_familiar.html")
@@ -112,9 +115,33 @@ def buscar (request):
 def eliminar_familiar (request, id):
     eliminar = Familias.objects.get(id=id)
     eliminar.delete()
+
     eliminar = Familias.objects.all()
 
-    return render(request, "lista_familiares.html", {"eliminar": eliminar})
+    return render(request, "lista_familiares.html", {'eliminar': eliminar})
+
+def modificar(request, id):
+    modificar = Familias.objects.get(id=id)
+    
+    if request.method == "POST":
+        miformulario = nuevo_formulario(request.POST)
+        
+        print(miformulario)
+
+        if miformulario.is_valid:
+            informacion = miformulario.cleaned_data
+            Familias.nombre = informacion['nombre']
+            Familias.edad = informacion['edad']
+            Familias.nacimiento = informacion['nacimiento']
+            Familias.vinculo = informacion['vinculo']
+
+            Familias.save()
+
+            return render(request, "modificar.html", {'modificar': modificar})
+
+    else:
+        miformulario=nuevo_formulario(initial={'nombre':Familias.nombre, 'edad':Familias.edad, 'nacimiento':Familias.nacimiento, 'vinculo':Familias.vinculo})
+    render (request, "modificar.html", {"miformulario" : miformulario})
 
 
 def login_request(request):
@@ -188,4 +215,45 @@ def editar_perfil (request):
 
          
 
+def about_me(request):
 
+    return render(request, "about_me.html")
+
+
+def template(request):
+    return render (request, "template.html")
+
+    
+def rojas(request):
+    return render (request, "rojas.html")
+     
+def konrath(request):
+    return render (request, "konrath.html")
+
+
+def perfil(request):
+    return render (request, "perfil.html")
+
+def perfil1(request):
+    return render (request, "perfil1.html")
+
+def perfil2(request):
+ return render (request, "perfil2.html")
+ 
+def perfil3(request):
+ return render (request, "perfil3.html")
+ 
+def perfil4(request):
+ return render (request, "perfil4.html")
+
+def perfil5(request):
+ return render (request, "perfil5.html")
+
+def perfil6(request):
+ return render (request, "perfil6.html")
+ 
+def perfil7(request):
+ return render (request, "perfil7.html")
+
+def perfil8(request):
+ return render (request, "perfil8.html")

@@ -3,34 +3,42 @@
 {% load static %} 
 
 {% block contenido %}
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Apellido</th>
-        <th scope="col">Pais</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-        <th scope="row">1</th>
-        <td>Rojas</td>
-        <td>España</td>
-        <td></td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Konrath</td>
-        <td>Alemania</td>
-        <td></td>
-      </tr>
-      <tr>
-    
-      </tr>
-    </tbody>
-  </table>
-   
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'app_familia/assets/img/Rojas.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Apellido Rojas</h5>
+          <p class="card-text">Es un toponímico, es decir, esta basado en el nombre del lugar donde nació o tuvo residencia el portador del apellido.</p>
+          <a href="rojas" class="btn btn-primary">Leer más</a>
+        </div>
+      </div>
 
+    </div>
+    <div class="col">
+
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'app_familia/assets/img/alemania.jpg' %} " class= "card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Apellido Konrath</h5>
+          <p class="card-text">El apellido Konrad se deriva del nombre alemán antiguo Kuoni-Rat, que significa consejal valiente (Kuoni=kuhn=valiente=temerario, Rat=consejo)</p>
+          <a href="konrath" class="btn btn-primary">Leer más</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+
+
+   
 
 
 

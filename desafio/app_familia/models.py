@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -19,9 +20,15 @@ class Apellido (models.Model):
         return f"Apellido origen: {self.Apellido_or}, Pais: {self.Pais}"
 
 class Domicilio (models.Model):
-    Nombre = models.CharField(max_length=40)
     calle = models.CharField(max_length=40)
     viviendo_desde = models.DateField(null=True)
 
     def __str__(self):
-        return f"Nombre: {self.Nombre}, Calle: {self.calle}, Viviendo desde: {self.viviendo_desde}"
+        return f" Calle: {self.calle}, Viviendo desde: {self.viviendo_desde}"
+
+
+
+class Avatar (models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='avatares', null=True, blank=True)
+

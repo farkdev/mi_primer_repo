@@ -20,9 +20,10 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="{% url 'index'%}">Inicio</a>
+                <a class="navbar-brand" href="{% url 'index' %}">Inicio</a>
+                <a class="navbar-brand" href="template">Navegador</a>
                 {% if request.user.is_authenticated %}
-                <a class="navbar-brand" href="{% url 'lista_familiares' %}">Familia</a>
+                <a class="navbar-brand" href="perfil">Familiares</a>
                 {% endif %}
                 {% if request.user.is_authenticated %}
                 <a class="navbar-brand" href="{% url 'domicilio' %}">Domicilios</a>
@@ -40,6 +41,7 @@
                 <a class="btn btn-primary" href="{% url 'logout'%}">Cerrar sesión</a>
                 {% endif %}
                 {% if request.user.is_authenticated %}
+                <img src="{{ url }}" alt="" width="100" height="60">
                 <p class="text-muted small mb-4">Bienvenido, {{user.username}}</p>
                 {% endif %}
 
@@ -53,11 +55,20 @@
                         <div class="text-center text-white">
                             <!-- Page heading-->
                             <h1 class="mb-5"></h1>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </header>
+       <main>   
+        <h1 style="text-align:center;"></h1>
+
+        <h3>
+            
+        </h3>
+
+       </main>
         
                 {% block contenido %}
 
@@ -72,13 +83,13 @@
                 <div class="row">
                     <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
                         <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
+                            <li class="list-inline-item"><a href="{% url 'about_me' %}">Acerca de mí</a></li>
                             <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Contact</a></li>
+                            <li class="list-inline-item"><a href="contacto">Contacto</a></li>
                             <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
+                            <li class="list-inline-item"><a href="#!">Términos de uso</a></li>
                             <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+                            <li class="list-inline-item"><a href="#!">Política de privacidad</a></li>
                         </ul>
                         <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2022. All Rights Reserved.</p>
                     </div>

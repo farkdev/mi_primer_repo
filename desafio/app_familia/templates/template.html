@@ -1,0 +1,59 @@
+
+
+<html>
+<head>
+    <style type="text/css">
+        .sidenav{
+            height: 100%;
+            width: 160px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow: hidden;
+            padding-top: 20px;
+    
+        }
+        .sidenav a{
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
+        .sidenav a:hover{
+            color: #f1f1f1;
+        }
+        .main{
+            margin-left: 160px;
+            padding: 0px 10px;
+        }
+
+    </style>
+    <title>NAVEGADOR</title>
+</head>
+<body>
+    <div class="sidenav">
+    <a class="navbar-brand" href="{% url 'index' %}">Inicio
+    <a class="navbar-brand" href="perfil">Familiares</a>   
+    <a class="navbar-brand" href="{% url 'lista_familiares' %}">Lista de familiares
+    <a class="navbar-brand" href="{% url 'buscar_familiar'  %}">Buscar familiar
+    <a class="navbar-brand" href="{% url 'editar_perfil' %}">Editar perfil
+    <a class="navbar-brand" href="domicilio">Domicilios
+    <a class="navbar-brand" href="rojas">Apellido Rojas
+    <a class="navbar-brand" href="konrath">Apellido Konrath
+    <a class="navbar-brand" href="about_me">Acerca de mí
+    <a class="navbar-brand" href="contacto">Contacto
+    <a class="navbar-brand" href="login">Iniciar sesión
+
+
+    </div>
+    <div id="content", name ="content", class="main"></div>
+
+
+
+</body>
+
+
+

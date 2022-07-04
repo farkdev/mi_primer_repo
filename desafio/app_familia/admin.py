@@ -8,3 +8,4 @@ from .models import *
 admin.site.register(Familias)
 admin.site.register(Domicilio)
 admin.site.register(Apellido)
+admin.site.register(Avatar)

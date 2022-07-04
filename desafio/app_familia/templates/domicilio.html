@@ -7,20 +7,19 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Nombre</th>
         <th scope="col">Dirección</th>
         <th scope="col">Viviendo desde</th>
       </tr>
     </thead>
     <tbody>
       {% for familiares in info %}
+  
       <tr>
         <th scope="row">{{familiares.id}}</th>>
-        <td>{{familiares.Nombre}}</td>
         <td>{{familiares.calle}}</td>
         <td>{{familiares.viviendo_desde}}</td>
-
         </th>
+       
         {% endfor %}
 
       </tr>
